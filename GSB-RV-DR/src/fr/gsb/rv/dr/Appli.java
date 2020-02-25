@@ -5,12 +5,15 @@
  */
 package fr.gsb.rv.dr;
 
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -48,7 +51,24 @@ public class Appli extends Application {
         itemQuitter.setAccelerator(KeyCombination.keyCombination("Ctrl + X"));
         
         itemQuitter.setOnAction( actionEvent ->  {
-            Platform.exit();
+            Alert alertQuitter = new Alert(Alert.AlertType.CONFIRMATION);
+            
+            alertQuitter.setTitle("Quitter");
+            alertQuitter.setHeaderText("Demande de confirmation");
+            alertQuitter.setContentText("Voulez-vous quittez l'application ?");
+            
+            ButtonType btnOui = new ButtonType("Oui");
+            ButtonType btnNon = new ButtonType("Non");
+                        
+            alertQuitter.getButtonTypes().setAll(btnOui, btnNon);
+            
+            Optional<ButtonType> reponse = alertQuitter.showAndWait();
+            
+            if (reponse.get().getText() == "Oui")
+            {
+                Platform.exit();
+            }
+            
         });
         
         
