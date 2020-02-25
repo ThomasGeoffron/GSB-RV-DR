@@ -25,17 +25,23 @@ import javafx.stage.Stage;
  * @author developpeur
  */
 public class Appli extends Application {
+    /* Propriété indiquant l'état de la session : 
+    true -> ouverte, false -> fermée */
+    private boolean etatSession = false;
     
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
         
+        // Création de la barre de menus
         MenuBar barreMenus = new MenuBar();
-           
+          
+        // Création du menu Fichier et de ses items
         Menu menuFichier = new Menu("Fichier");
         MenuItem itemSeConnecter = new MenuItem("Se connecter");
         MenuItem itemSeDeconnecter = new MenuItem("Se déconnecter");
         
+        // Création du séparateur d'item
         SeparatorMenuItem separator = new SeparatorMenuItem();
            
         MenuItem itemQuitter = new MenuItem("Quitter");
@@ -46,15 +52,29 @@ public class Appli extends Application {
             }
         );
         
-
+        Menu menuRapports = new Menu("Rapports");
+        MenuItem itemConsulter = new MenuItem("Consulter");
+        
+        menuRapports.getItems().add(itemConsulter);
+        
+        Menu menuPraticiens = new Menu("Praticiens");
+        MenuItem itemPraticiens = new MenuItem("Hésitants");
+        
+        menuPraticiens.getItems().add(itemPraticiens);
+        
+        
+        
+        // Ajout des items dans le menu Fichier
         menuFichier.getItems().addAll(itemSeConnecter, itemSeDeconnecter, 
                 separator, itemQuitter);
         
-        barreMenus.getMenus().add(menuFichier);
+        // Ajout des menus dans la barre de menus
+        barreMenus.getMenus().addAll(menuFichier, menuRapports, menuPraticiens);
         
+        // Positionnement de la barre de menus au bord supérieur
         root.setTop(barreMenus);
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 600, 450);
         
         primaryStage.setTitle("GSB-RV-DR");
         primaryStage.setScene(scene);
