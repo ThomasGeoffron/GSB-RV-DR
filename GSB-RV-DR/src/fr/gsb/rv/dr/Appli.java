@@ -36,6 +36,8 @@ public class Appli extends Application {
         
         barreMenus.getMenus().add(menuFichier);
         
+        root.setTop(barreMenus);
+        
         Scene scene = new Scene(root, 300, 250);
         
         primaryStage.setTitle("GSB-RV-DR");
