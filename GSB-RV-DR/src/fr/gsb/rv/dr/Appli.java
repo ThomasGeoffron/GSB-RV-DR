@@ -6,6 +6,7 @@
 package fr.gsb.rv.dr;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -30,9 +33,22 @@ public class Appli extends Application {
         MenuBar barreMenus = new MenuBar();
            
         Menu menuFichier = new Menu("Fichier");
-        MenuItem itemseConnecter = new MenuItem("Se connecter");
+        MenuItem itemSeConnecter = new MenuItem("Se connecter");
+        MenuItem itemSeDeconnecter = new MenuItem("Se déconnecter");
+        
+        SeparatorMenuItem separator = new SeparatorMenuItem();
+           
+        MenuItem itemQuitter = new MenuItem("Quitter");
+        itemQuitter.setAccelerator(KeyCombination.keyCombination("Ctrl + X"));
+        
+        itemQuitter.setOnAction( actionEvent ->  {
+                Platform.exit();
+            }
+        );
+        
 
-        menuFichier.getItems().add(itemseConnecter);
+        menuFichier.getItems().addAll(itemSeConnecter, itemSeDeconnecter, 
+                separator, itemQuitter);
         
         barreMenus.getMenus().add(menuFichier);
         
