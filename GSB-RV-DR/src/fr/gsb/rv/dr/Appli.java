@@ -48,9 +48,10 @@ public class Appli extends Application {
         itemQuitter.setAccelerator(KeyCombination.keyCombination("Ctrl + X"));
         
         itemQuitter.setOnAction( actionEvent ->  {
-                Platform.exit();
-            }
-        );
+            Platform.exit();
+        });
+        
+        
         
         Menu menuRapports = new Menu("Rapports");
         MenuItem itemConsulter = new MenuItem("Consulter");
@@ -62,14 +63,32 @@ public class Appli extends Application {
         
         menuPraticiens.getItems().add(itemPraticiens);
         
+        itemSeConnecter.setOnAction( actionEvent -> {
+            etatSession = true;
+            
+            menuFichier.getItems().remove(itemSeConnecter);
+            menuFichier.getItems().add(0, itemSeDeconnecter);
+            
+            barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+        });
+        
+        itemSeDeconnecter.setOnAction( actionEvent -> {
+            etatSession = false;
+            
+            menuFichier.getItems().remove(itemSeDeconnecter);
+            menuFichier.getItems().add(0, itemSeConnecter);
+            
+            barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
+        });
         
         
         // Ajout des items dans le menu Fichier
-        menuFichier.getItems().addAll(itemSeConnecter, itemSeDeconnecter, 
-                separator, itemQuitter);
-        
+        menuFichier.getItems().addAll(itemSeConnecter, 
+            separator, itemQuitter);
+
         // Ajout des menus dans la barre de menus
-        barreMenus.getMenus().addAll(menuFichier, menuRapports, menuPraticiens);
+        barreMenus.getMenus().addAll(menuFichier);
+        
         
         // Positionnement de la barre de menus au bord supérieur
         root.setTop(barreMenus);
