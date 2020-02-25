@@ -74,7 +74,7 @@ public class Appli extends Application {
             alertQuit.getButtonTypes().setAll( btnYes , btnNo);
             Optional<ButtonType> reponse = alertQuit.showAndWait();
             String LaReponse = reponse.get().getText();
-            if(LaReponse == "Oui"){
+            if("Oui".equals(LaReponse)){
                 Platform.exit();
             }
             
