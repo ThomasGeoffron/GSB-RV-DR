@@ -12,7 +12,7 @@ import fr.gsb.rv.dr.entites.Visiteur;
  * @author developpeur
  */
 public class Session {
-    private static Session session;
+    private static Session session = null;
     private Visiteur leVisiteur;
     
     private Session(Visiteur visiteur){

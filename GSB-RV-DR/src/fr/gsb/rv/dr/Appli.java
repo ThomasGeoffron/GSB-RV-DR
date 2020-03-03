@@ -5,6 +5,8 @@
  */
 package fr.gsb.rv.dr;
 
+import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.technique.Session;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -28,9 +30,6 @@ import javafx.stage.Stage;
  * @author developpeur
  */
 public class Appli extends Application {
-    /* Propriété indiquant l'état de la session : 
-    true -> ouverte, false -> fermée */
-    private boolean etatSession = false;
     
     @Override
     public void start(Stage primaryStage) {
@@ -84,21 +83,67 @@ public class Appli extends Application {
         menuPraticiens.getItems().add(itemPraticiens);
         
         itemSeConnecter.setOnAction( actionEvent -> {
-            etatSession = true;
+            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
             
-            menuFichier.getItems().remove(itemSeConnecter);
-            menuFichier.getItems().add(0, itemSeDeconnecter);
+            Session.ouvrir(visiteur);
             
-            barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+            if (Session.estOuverte()) {
+                menuFichier.getItems().remove(itemSeConnecter);
+                menuFichier.getItems().add(0, itemSeDeconnecter);
+                
+                barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+                
+                primaryStage.setTitle(visiteur.getNom() + " " + visiteur.getPrenom());
+                
+                //System.out.println(Session.getSession().getLeVisiteur());
+            }
+            else {
+                Alert alertQuitter = new Alert(Alert.AlertType.ERROR);
+            
+                alertQuitter.setTitle("Connexion impossible");
+                alertQuitter.setHeaderText("Matricule ou mot de passe incorrect.");
+
+                ButtonType btnOk = new ButtonType("ok");
+                
+                alertQuitter.getButtonTypes().set(0, btnOk);
+            
+                Optional<ButtonType> reponse = alertQuitter.showAndWait();
+            }
+            
+            
         });
         
         itemSeDeconnecter.setOnAction( actionEvent -> {
-            etatSession = false;
             
-            menuFichier.getItems().remove(itemSeDeconnecter);
-            menuFichier.getItems().add(0, itemSeConnecter);
+            Session.fermer();
             
-            barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
+            if (!Session.estOuverte()) {
+                menuFichier.getItems().remove(itemSeDeconnecter);
+                menuFichier.getItems().add(0, itemSeConnecter);
+
+                barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
+
+                primaryStage.setTitle("GSB-RV-DR");
+            }       
+            
+        });
+        
+        itemConsulter.setOnAction( actionEvent -> {
+            
+            Session session = Session.getSession();
+            Visiteur visiteur = session.getLeVisiteur();
+            
+            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Rapports]");
+            
+        });
+        
+        itemPraticiens.setOnAction( actionEvent -> {
+            
+            Session session = Session.getSession();
+            Visiteur visiteur = session.getLeVisiteur();
+            
+            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Praticiens]"); 
+        
         });
         
         
