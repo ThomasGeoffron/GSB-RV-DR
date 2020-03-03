@@ -1,4 +1,4 @@
-package fr.gsb.rv.technique;
+package fr.gsb.rv.dr.technique;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -6,8 +6,13 @@
 package fr.gsb.rv.dr;
 
 import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.technique.ConnexionBD;
+import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
+import java.sql.Connection;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -83,8 +88,9 @@ public class Appli extends Application {
         menuPraticiens.getItems().add(itemPraticiens);
         
         itemSeConnecter.setOnAction( actionEvent -> {
-//            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
-//            
+            
+                //            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
+//
 //            Session.ouvrir(visiteur);
 //            
 //            if (Session.estOuverte()) {
@@ -109,6 +115,24 @@ public class Appli extends Application {
 //            
 //                Optional<ButtonType> reponse = alertQuitter.showAndWait();
 //            }
+
+
+//            try {
+//                Connection connexion = ConnexionBD.getConnexion();
+//                
+//                menuFichier.getItems().remove(itemSeConnecter);
+//                menuFichier.getItems().add(0, itemSeDeconnecter);
+//
+//                barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+//            } 
+//            catch (ConnexionException ex) {
+//                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
+            menuFichier.getItems().remove(itemSeConnecter);
+            menuFichier.getItems().add(0, itemSeDeconnecter);
+
+            barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
             
             
         });
