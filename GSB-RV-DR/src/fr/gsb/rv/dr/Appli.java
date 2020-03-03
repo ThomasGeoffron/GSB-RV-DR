@@ -83,66 +83,66 @@ public class Appli extends Application {
         menuPraticiens.getItems().add(itemPraticiens);
         
         itemSeConnecter.setOnAction( actionEvent -> {
-            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
-            
-            Session.ouvrir(visiteur);
-            
-            if (Session.estOuverte()) {
-                menuFichier.getItems().remove(itemSeConnecter);
-                menuFichier.getItems().add(0, itemSeDeconnecter);
-                
-                barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
-                
-                primaryStage.setTitle(visiteur.getNom() + " " + visiteur.getPrenom());
-                
-                //System.out.println(Session.getSession().getLeVisiteur());
-            }
-            else {
-                Alert alertQuitter = new Alert(Alert.AlertType.ERROR);
-            
-                alertQuitter.setTitle("Connexion impossible");
-                alertQuitter.setHeaderText("Matricule ou mot de passe incorrect.");
-
-                ButtonType btnOk = new ButtonType("ok");
-                
-                alertQuitter.getButtonTypes().set(0, btnOk);
-            
-                Optional<ButtonType> reponse = alertQuitter.showAndWait();
-            }
+//            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
+//            
+//            Session.ouvrir(visiteur);
+//            
+//            if (Session.estOuverte()) {
+//                menuFichier.getItems().remove(itemSeConnecter);
+//                menuFichier.getItems().add(0, itemSeDeconnecter);
+//                
+//                barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+//                
+//                primaryStage.setTitle(visiteur.getNom() + " " + visiteur.getPrenom());
+//                
+//                //System.out.println(Session.getSession().getLeVisiteur());
+//            }
+//            else {
+//                Alert alertQuitter = new Alert(Alert.AlertType.ERROR);
+//            
+//                alertQuitter.setTitle("Connexion impossible");
+//                alertQuitter.setHeaderText("Matricule ou mot de passe incorrect.");
+//
+//                ButtonType btnOk = new ButtonType("ok");
+//                
+//                alertQuitter.getButtonTypes().set(0, btnOk);
+//            
+//                Optional<ButtonType> reponse = alertQuitter.showAndWait();
+//            }
             
             
         });
         
         itemSeDeconnecter.setOnAction( actionEvent -> {
             
-            Session.fermer();
-            
-            if (!Session.estOuverte()) {
-                menuFichier.getItems().remove(itemSeDeconnecter);
-                menuFichier.getItems().add(0, itemSeConnecter);
-
-                barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
-
-                primaryStage.setTitle("GSB-RV-DR");
-            }       
+//            Session.fermer();
+//            
+//            if (!Session.estOuverte()) {
+//                menuFichier.getItems().remove(itemSeDeconnecter);
+//                menuFichier.getItems().add(0, itemSeConnecter);
+//
+//                barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
+//
+//                primaryStage.setTitle("GSB-RV-DR");
+//            }       
             
         });
         
         itemConsulter.setOnAction( actionEvent -> {
             
-            Session session = Session.getSession();
-            Visiteur visiteur = session.getLeVisiteur();
-            
-            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Rapports]");
+//            Session session = Session.getSession();
+//            Visiteur visiteur = session.getLeVisiteur();
+//            
+//            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Rapports]");
             
         });
         
         itemPraticiens.setOnAction( actionEvent -> {
             
-            Session session = Session.getSession();
-            Visiteur visiteur = session.getLeVisiteur();
-            
-            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Praticiens]"); 
+//            Session session = Session.getSession();
+//            Visiteur visiteur = session.getLeVisiteur();
+//            
+//            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Praticiens]"); 
         
         });
         
