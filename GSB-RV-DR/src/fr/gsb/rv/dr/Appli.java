@@ -22,6 +22,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import java.util.Optional;
+import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.technique.Session;
 
 /**
  *
@@ -31,7 +33,9 @@ public class Appli extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-       
+        Session.fermer();
+        Visiteur visit = new Visiteur("OB001","BELLILI","Oumayma");
+        
         BorderPane root = new BorderPane();
         
         //Création barre de navigation
@@ -58,9 +62,6 @@ public class Appli extends Application {
         menuPraticiens.setDisable(true);
         
         
-        
-        
-        
         //action du bouton quitter
         quitter.setOnAction(actionEvent ->{
             Alert alertQuit = new Alert(Alert.AlertType.CONFIRMATION);
@@ -80,7 +81,9 @@ public class Appli extends Application {
             
         });
         
-        
+        rapportItem.setOnAction(actionEvent ->{
+            System.out.println();
+        });
         
         //action du bouton SeDeconnecter
         itemSeDeconnecter.setOnAction(actionEvent ->{
@@ -96,7 +99,12 @@ public class Appli extends Application {
             itemSeDeconnecter.setDisable(false);
             menuRapports.setDisable(false);
             menuPraticiens.setDisable(false);
+            
+            Session.ouvrir(visit);
+            
+            
         });
+        
         //affectation de l'accélérateur du bouton quitter par la combinaison "Ctrl + X"
         quitter.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
         
@@ -111,9 +119,9 @@ public class Appli extends Application {
         
         root.setTop(barreMenu);
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 400, 300);
         
-        primaryStage.setTitle("GSB-RV-DR");
+        primaryStage.setTitle("GSB-RV-DR " + visit.getNom() + " " + visit.getPrenom());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
