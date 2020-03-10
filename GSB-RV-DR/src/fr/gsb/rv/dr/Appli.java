@@ -6,6 +6,7 @@
 package fr.gsb.rv.dr;
 
 import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionBD;
 import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
@@ -89,7 +90,7 @@ public class Appli extends Application {
         
         itemSeConnecter.setOnAction( actionEvent -> {
             
-                //            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
+//            Visiteur visiteur = new Visiteur("OB001", "BELLILI", "Oumayma");
 //
 //            Session.ouvrir(visiteur);
 //            
@@ -128,7 +129,36 @@ public class Appli extends Application {
 //            catch (ConnexionException ex) {
 //                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
 //            }
+               
+//            try {
+//                ModeleGsbRv.seConnecter("OB001", "azerty");
+//
+//                menuFichier.getItems().remove(itemSeConnecter);
+//                menuFichier.getItems().add(0, itemSeDeconnecter);
+//
+//                barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+//            } 
+//            catch (ConnexionException ex) {
+//                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
+//            try {
+//                String matricule = "a17";
+//                String mdp = "azerty";
+//                
+//                Visiteur visiteur = ModeleGsbRv.seConnecter(matricule, mdp);
+//                
+//                System.out.println(visiteur.toString());
+//                
+//                menuFichier.getItems().remove(itemSeConnecter);
+//                menuFichier.getItems().add(0, itemSeDeconnecter);
+//
+//                barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+//            }
+//            catch (Exception e) {
+//                System.out.println("Erreur de connexion.");
+//            }
+            
             menuFichier.getItems().remove(itemSeConnecter);
             menuFichier.getItems().add(0, itemSeDeconnecter);
 
@@ -148,7 +178,14 @@ public class Appli extends Application {
 //                barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
 //
 //                primaryStage.setTitle("GSB-RV-DR");
-//            }       
+//            } 
+
+            menuFichier.getItems().remove(itemSeDeconnecter);
+            menuFichier.getItems().add(0, itemSeConnecter);
+
+            barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
+
+            primaryStage.setTitle("GSB-RV-DR");
             
         });
         

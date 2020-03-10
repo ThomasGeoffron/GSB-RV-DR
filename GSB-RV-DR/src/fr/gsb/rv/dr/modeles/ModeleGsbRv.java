@@ -14,18 +14,21 @@ public class ModeleGsbRv {
         
         Connection connexion = ConnexionBD.getConnexion() ;
         
-        String requete = "select vis_nom "
+        String requete = "select vis_nom, vis_prenom "
                 + "from Visiteur "
-                + "where vis_matricule = ?" ;
+                + "where vis_matricule = ? "
+                + "and vis_mdp = ?";
         
         try {
             PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement( requete ) ;
             requetePreparee.setString( 1 , matricule );
+            requetePreparee.setString(2, mdp);
             ResultSet resultat = requetePreparee.executeQuery() ;
             if( resultat.next() ){
                 Visiteur visiteur = new Visiteur() ;
                 visiteur.setMatricule( matricule );
                 visiteur.setNom( resultat.getString( "vis_nom" ) ) ;
+                visiteur.setPrenom( resultat.getString( "vis_prenom" ) ) ;
                 
                 requetePreparee.close() ;
                 return visiteur ;
