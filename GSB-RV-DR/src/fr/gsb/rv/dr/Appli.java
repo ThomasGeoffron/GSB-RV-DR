@@ -55,13 +55,13 @@ public class Appli extends Application {
         MenuItem rapportItem = new MenuItem("Consulter");
         menuRapports.getItems().add(rapportItem);
         menuRapports.setDisable(true);
+        
         //Création menu déroulant "Praticiens"
         Menu menuPraticiens = new Menu("Praticiens");
         MenuItem praticienItem = new MenuItem("Hésitants");
         menuPraticiens.getItems().add(praticienItem);
         menuPraticiens.setDisable(true);
-        
-        
+
         //action du bouton quitter
         quitter.setOnAction(actionEvent ->{
             Alert alertQuit = new Alert(Alert.AlertType.CONFIRMATION);
@@ -81,8 +81,14 @@ public class Appli extends Application {
             
         });
         
+        //action du bouton praticiensHésitants (praticienItem)
+        praticienItem.setOnAction(actionEvent->{
+            System.out.println("[\"Praticiens\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+        });
+        
+        //action du bouton rapports consulter (rapportItem)
         rapportItem.setOnAction(actionEvent ->{
-            System.out.println();
+            System.out.println("[\"Rapports\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
         });
         
         //action du bouton SeDeconnecter
@@ -91,6 +97,7 @@ public class Appli extends Application {
             itemSeConnecter.setDisable(false);
             menuRapports.setDisable(true);
             menuPraticiens.setDisable(true);
+            primaryStage.setTitle("GSB-RV-DR");
         });
         
         //action du bouton Se Connecter
@@ -101,8 +108,7 @@ public class Appli extends Application {
             menuPraticiens.setDisable(false);
             
             Session.ouvrir(visit);
-            
-            
+            primaryStage.setTitle("GSB-RV-DR " + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
         });
         
         //affectation de l'accélérateur du bouton quitter par la combinaison "Ctrl + X"
@@ -120,8 +126,8 @@ public class Appli extends Application {
         root.setTop(barreMenu);
         
         Scene scene = new Scene(root, 400, 300);
-        
-        primaryStage.setTitle("GSB-RV-DR " + visit.getNom() + " " + visit.getPrenom());
+               
+        primaryStage.setTitle("GSB-RV-DR");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

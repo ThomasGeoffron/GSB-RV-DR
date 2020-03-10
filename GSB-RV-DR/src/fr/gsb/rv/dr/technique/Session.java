@@ -20,18 +20,18 @@ public class Session {
     }
     
     public static void ouvrir(Visiteur leVisiteur){
-        
-        
+        session = new Session(leVisiteur);
+        System.out.println("Ouverture de session avec l'utilisateur " + leVisiteur.getNom());
     }
     
     public static void fermer(){
-        
+        if(session == null){
+            System.out.println("La session est déja fermée");
+        }
+        session = null;
     }
 
     public static Session getSession() {
-        if(session == null){
-            new Session();
-        }
         return session;
     }
 
@@ -39,8 +39,13 @@ public class Session {
         return leVisiteur;
     }
     
-    public boolean estOuverte(){
-        return false;
+    public static boolean estOuverte(){
+        if(session != null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     
