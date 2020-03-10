@@ -23,7 +23,17 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import java.util.Optional;
 import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.technique.ConnexionBD;
+import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import fr.gsb.rv.dr.modeles.ModeleGsbRv;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,9 +42,29 @@ import fr.gsb.rv.dr.technique.Session;
 public class Appli extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        Session.fermer();
-        Visiteur visit = new Visiteur("OB001","BELLILI","Oumayma");
+    public void start(Stage primaryStage) throws ConnexionException, SQLException {
+        //ConnexionBD.getConnexion();
+        //Session.fermer();
+        /*
+        Statement stmt = ConnexionBD.getConnexion().createStatement();
+        ResultSet res = stmt.executeQuery("select v.vis_matricule, v.vis_nom,"
+                + " v.vis_prenom from Visiteur v "
+                + "inner join Travailler t on v.vis_matricule = t.vis_matricule"
+                + " where t.tra_role = \"délégué\";");
+        String mat = new String();
+        String nom = new String();
+        String prenom = new String();
+        
+        while (res.next()){
+            mat = res.getString("vis_matricule");
+            nom = res.getString("vis_nom");
+            prenom = res.getString("vis_prenom");
+        }
+        
+        Visiteur visit = new Visiteur(mat,nom,prenom);
+        */
+        
+       
         
         BorderPane root = new BorderPane();
         
@@ -83,12 +113,12 @@ public class Appli extends Application {
         
         //action du bouton praticiensHésitants (praticienItem)
         praticienItem.setOnAction(actionEvent->{
-            System.out.println("[\"Praticiens\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+            //System.out.println("[\"Praticiens\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
         });
         
         //action du bouton rapports consulter (rapportItem)
         rapportItem.setOnAction(actionEvent ->{
-            System.out.println("[\"Rapports\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+            //System.out.println("[\"Rapports\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
         });
         
         //action du bouton SeDeconnecter
@@ -97,7 +127,7 @@ public class Appli extends Application {
             itemSeConnecter.setDisable(false);
             menuRapports.setDisable(true);
             menuPraticiens.setDisable(true);
-            primaryStage.setTitle("GSB-RV-DR");
+            //primaryStage.setTitle("GSB-RV-DR");
         });
         
         //action du bouton Se Connecter
@@ -107,8 +137,19 @@ public class Appli extends Application {
             menuRapports.setDisable(false);
             menuPraticiens.setDisable(false);
             
-            Session.ouvrir(visit);
-            primaryStage.setTitle("GSB-RV-DR " + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+            
+            /*
+            Visiteur visi = new Visiteur();
+            try {
+                visi = ModeleGsbRv.seConnecter("a131","azerty");
+            } catch (ConnexionException ex) {
+                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(visi.getMatricule() + " " + visi.getNom()+ " " + visi.getPrenom());
+            */
+            
+            //Session.ouvrir(visit);
+            //primaryStage.setTitle("GSB-RV-DR " + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
         });
         
         //affectation de l'accélérateur du bouton quitter par la combinaison "Ctrl + X"
