@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -30,6 +31,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  *
@@ -158,11 +160,53 @@ public class Appli extends Application {
 //            catch (Exception e) {
 //                System.out.println("Erreur de connexion.");
 //            }
-            
-            menuFichier.getItems().remove(itemSeConnecter);
-            menuFichier.getItems().add(0, itemSeDeconnecter);
 
-            barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+            VueConnexion laVue = new VueConnexion();
+            Dialog<Pair<String, String>> vue = laVue.getDialog();
+            Optional<Pair<String, String>> reponse = vue.showAndWait();
+            
+            System.out.println(reponse.toString());
+            
+            if (reponse.isPresent()) {
+                Pair<String, String> resultat = reponse.get();
+                try {
+                    Visiteur visiteur = ModeleGsbRv.seConnecter(resultat.getKey(), resultat.getValue());
+                    
+                    if (visiteur != null) {
+                        Session.ouvrir(visiteur);
+                        
+                        menuFichier.getItems().remove(itemSeConnecter);
+                        menuFichier.getItems().add(0, itemSeDeconnecter);
+
+                        barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+                    }
+                    else {
+                        Alert alertCo = new Alert(Alert.AlertType.ERROR);
+                        
+                        alertCo.setTitle("Echec");
+                        alertCo.setHeaderText("Erreur d'authentification !");
+                        alertCo.setContentText("Login ou mot de passe incorrect.");
+                        
+                        Optional<ButtonType> quit = alertCo.showAndWait();
+                    }
+                    
+                    
+                } catch (ConnexionException ex) {
+                    Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                    Alert alertCo = new Alert(Alert.AlertType.ERROR);
+                        
+                    alertCo.setTitle("Echec");
+                    alertCo.setHeaderText("Erreur d'authentification !");
+                    alertCo.setContentText("Login ou mot de passe incorrect.");
+                    
+                    Optional<ButtonType> quit = alertCo.showAndWait();
+                }
+                
+                
+            }
+            
+            
             
             
         });
