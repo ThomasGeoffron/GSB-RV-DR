@@ -34,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 
 /**
  *
@@ -43,8 +44,10 @@ public class Appli extends Application {
     
     @Override
     public void start(Stage primaryStage) throws ConnexionException, SQLException {
+        //Visiteur leVisiteur = new Visiteur();
+        
         //ConnexionBD.getConnexion();
-        //Session.fermer();
+        Session.fermer();
         /*
         Statement stmt = ConnexionBD.getConnexion().createStatement();
         ResultSet res = stmt.executeQuery("select v.vis_matricule, v.vis_nom,"
@@ -127,15 +130,37 @@ public class Appli extends Application {
             itemSeConnecter.setDisable(false);
             menuRapports.setDisable(true);
             menuPraticiens.setDisable(true);
+            Session.fermer();
             //primaryStage.setTitle("GSB-RV-DR");
         });
         
         //action du bouton Se Connecter
-        itemSeConnecter.setOnAction(actionEvent ->{
-            itemSeConnecter.setDisable(true);
-            itemSeDeconnecter.setDisable(false);
-            menuRapports.setDisable(false);
-            menuPraticiens.setDisable(false);
+        itemSeConnecter.setOnAction((ActionEvent actionEvent) ->{
+            
+            
+            VueConnexion vue = new VueConnexion();
+            Optional<Pair<String,String>> reponse = vue.showAndWait();
+            
+            if(reponse.isPresent()){
+                try {
+                    String[] visit = reponse.get().toString().split("=");
+                    Visiteur leVisiteur = ModeleGsbRv.seConnecter(visit[0], visit[1]);
+                    if(leVisiteur != null){
+                        Session.ouvrir(leVisiteur);
+                        itemSeDeconnecter.setDisable(false);
+                        itemSeConnecter.setDisable(true);
+                        menuRapports.setDisable(false);
+                        menuPraticiens.setDisable(false);
+                        
+                    }
+                    else{
+                        System.out.println("Ce Visiteur n'existe pas, Veuillez réesayer");
+                    }
+                    
+                } catch (ConnexionException ex) {
+                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
             
             
             /*

@@ -36,7 +36,7 @@ public class ModeleGsbRv {
                 return null ;
             }
         }
-        catch( Exception e ){
+        catch( SQLException e ){
             return null ;
         } 
     }
