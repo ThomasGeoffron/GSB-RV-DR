@@ -34,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 
 /**
@@ -42,12 +43,20 @@ import javafx.util.Pair;
  */
 public class Appli extends Application {
     
+    private PanneauAccueil vueAccueil = new PanneauAccueil();
+    private PanneauRapports vueRapports = new PanneauRapports();
+    private PanneauPraticiens vuePraticiens = new PanneauPraticiens();
+    
     @Override
     public void start(Stage primaryStage) throws ConnexionException, SQLException {
         //Visiteur leVisiteur = new Visiteur();
         
+        
+        
         //ConnexionBD.getConnexion();
         Session.fermer();
+        
+        
         /*
         Statement stmt = ConnexionBD.getConnexion().createStatement();
         ResultSet res = stmt.executeQuery("select v.vis_matricule, v.vis_nom,"
@@ -67,9 +76,10 @@ public class Appli extends Application {
         Visiteur visit = new Visiteur(mat,nom,prenom);
         */
         
+        //Panneaux
+        StackPane pile = new StackPane();
+        pile.getChildren().addAll(vueAccueil,vueRapports,vuePraticiens);
        
-        
-        BorderPane root = new BorderPane();
         
         //Création barre de navigation
         MenuBar barreMenu = new MenuBar();
@@ -117,11 +127,17 @@ public class Appli extends Application {
         //action du bouton praticiensHésitants (praticienItem)
         praticienItem.setOnAction(actionEvent->{
             //System.out.println("[\"Praticiens\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+            vueAccueil.setVisible(false);
+            vuePraticiens.setVisible(true);
+            vueRapports.setVisible(false);
         });
         
         //action du bouton rapports consulter (rapportItem)
         rapportItem.setOnAction(actionEvent ->{
             //System.out.println("[\"Rapports\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+            vueAccueil.setVisible(false);
+            vuePraticiens.setVisible(false);
+            vueRapports.setVisible(true);
         });
         
         //action du bouton SeDeconnecter
@@ -189,7 +205,13 @@ public class Appli extends Application {
         barreMenu.getMenus().add(menuRapports);
         barreMenu.getMenus().add(menuPraticiens);
         
+        BorderPane root = new BorderPane();
+        
         root.setTop(barreMenu);
+        vueAccueil.setVisible(true);
+        vuePraticiens.setVisible(false);
+        vueRapports.setVisible(false);
+        root.setCenter(pile);
         
         Scene scene = new Scene(root, 400, 300);
                
