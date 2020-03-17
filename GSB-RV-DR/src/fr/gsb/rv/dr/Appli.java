@@ -10,6 +10,7 @@ import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionBD;
 import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
+import java.awt.Panel;
 import java.sql.Connection;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -29,6 +30,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -39,9 +41,25 @@ import javafx.util.Pair;
  */
 public class Appli extends Application {
     
+    private PanneauAccueil vueAccueil = new PanneauAccueil();
+    private PanneauRapports vueRapports = new PanneauRapports();
+    private PanneauPraticiens vuePraticiens = new PanneauPraticiens();
+    
     @Override
     public void start(Stage primaryStage) {
+        
         BorderPane root = new BorderPane();
+        
+        StackPane stack = new StackPane();
+        
+        stack.getChildren().add(vueAccueil.getPane());
+        stack.getChildren().add(vueRapports.getPane());
+        stack.getChildren().add(vuePraticiens.getPane());
+        
+        
+        vueRapports.getPane().setVisible(false);
+        vuePraticiens.getPane().setVisible(false);
+        vueAccueil.getPane().setVisible(false);
         
         // Création de la barre de menus
         MenuBar barreMenus = new MenuBar();
@@ -179,6 +197,11 @@ public class Appli extends Application {
                         menuFichier.getItems().add(0, itemSeDeconnecter);
 
                         barreMenus.getMenus().addAll(menuRapports, menuPraticiens);
+                        
+                        vueAccueil.getPane().toFront();
+                        vueRapports.getPane().setVisible(false);
+                        vuePraticiens.getPane().setVisible(false);
+                        vueAccueil.getPane().setVisible(true);
                     }
                     else {
                         Alert alertCo = new Alert(Alert.AlertType.ERROR);
@@ -239,6 +262,11 @@ public class Appli extends Application {
 //            Visiteur visiteur = session.getLeVisiteur();
 //            
 //            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Rapports]");
+
+            vueRapports.getPane().toFront();
+            vueRapports.getPane().setVisible(true);
+            vuePraticiens.getPane().setVisible(false);
+            vueAccueil.getPane().setVisible(false);
             
         });
         
@@ -247,7 +275,12 @@ public class Appli extends Application {
 //            Session session = Session.getSession();
 //            Visiteur visiteur = session.getLeVisiteur();
 //            
-//            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Praticiens]"); 
+//            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Praticiens]");
+
+            vuePraticiens.getPane().toFront();
+            vuePraticiens.getPane().setVisible(true);
+            vueRapports.getPane().setVisible(false);
+            vueAccueil.getPane().setVisible(false);
         
         });
         
@@ -262,6 +295,8 @@ public class Appli extends Application {
         
         // Positionnement de la barre de menus au bord supérieur
         root.setTop(barreMenus);
+        
+        root.setCenter(stack);
         
         Scene scene = new Scene(root, 600, 450);
         
