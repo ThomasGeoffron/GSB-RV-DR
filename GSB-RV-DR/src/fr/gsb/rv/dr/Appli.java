@@ -127,17 +127,16 @@ public class Appli extends Application {
         //action du bouton praticiensHésitants (praticienItem)
         praticienItem.setOnAction(actionEvent->{
             //System.out.println("[\"Praticiens\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
-            vueAccueil.setVisible(false);
-            vuePraticiens.setVisible(true);
-            vueRapports.setVisible(false);
+            
+            vuePraticiens.toFront();
+            
         });
         
         //action du bouton rapports consulter (rapportItem)
         rapportItem.setOnAction(actionEvent ->{
             //System.out.println("[\"Rapports\"]" + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
-            vueAccueil.setVisible(false);
-            vuePraticiens.setVisible(false);
-            vueRapports.setVisible(true);
+            
+            vueRapports.toFront();
         });
         
         //action du bouton SeDeconnecter
@@ -208,9 +207,7 @@ public class Appli extends Application {
         BorderPane root = new BorderPane();
         
         root.setTop(barreMenu);
-        vueAccueil.setVisible(true);
-        vuePraticiens.setVisible(false);
-        vueRapports.setVisible(false);
+        vueAccueil.toFront();
         root.setCenter(pile);
         
         Scene scene = new Scene(root, 400, 300);
