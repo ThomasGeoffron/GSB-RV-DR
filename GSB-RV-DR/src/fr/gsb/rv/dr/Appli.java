@@ -5,6 +5,7 @@
  */
 package fr.gsb.rv.dr;
 
+import fr.gsb.rv.dr.entites.Praticien;
 import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionBD;
@@ -12,6 +13,8 @@ import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
 import java.awt.Panel;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -281,6 +284,18 @@ public class Appli extends Application {
             vuePraticiens.getPane().setVisible(true);
             vueRapports.getPane().setVisible(false);
             vueAccueil.getPane().setVisible(false);
+            
+            try {
+                List<Praticien> praticiens = ModeleGsbRv.getPraticiensHesitants();
+                
+                for ( Praticien unPraticien : praticiens ) {
+                    System.out.println( unPraticien.toString() );
+                }
+            } 
+            
+            catch (ConnexionException | SQLException ex) {
+                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
         });
         
