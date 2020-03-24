@@ -5,6 +5,7 @@
  */
 package fr.gsb.rv.dr;
 
+import fr.gsb.rv.dr.entites.Praticien;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,6 +33,7 @@ import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.layout.Pane;
@@ -209,6 +211,11 @@ public class Appli extends Application {
         root.setTop(barreMenu);
         vueAccueil.toFront();
         root.setCenter(pile);
+        
+        List<Praticien>praticiens = ModeleGsbRv.getPraticiensHesitants();
+        for(Praticien unPraticien : praticiens){
+            System.out.println(unPraticien);
+        }
         
         Scene scene = new Scene(root, 400, 300);
                
