@@ -5,6 +5,7 @@
  */
 package fr.gsb.rv.dr;
 
+import static fr.gsb.rv.dr.PanneauPraticiens.CRITERE_COEF_CONFIANCE;
 import fr.gsb.rv.dr.entites.Praticien;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -50,16 +51,16 @@ import java.util.Collections;
  */
 public class Appli extends Application {
     
-    private PanneauAccueil vueAccueil = new PanneauAccueil();
-    private PanneauRapports vueRapports = new PanneauRapports();
-    private PanneauPraticiens vuePraticiens = new PanneauPraticiens();
-    
     @Override
     public void start(Stage primaryStage) throws ConnexionException, SQLException {
         //Visiteur leVisiteur = new Visiteur();
         
         
+        PanneauAccueil vueAccueil = new PanneauAccueil();
+        PanneauRapports vueRapports = new PanneauRapports();
         
+        List<Praticien>praticiens = ModeleGsbRv.getPraticiensHesitants();
+        PanneauPraticiens vuePraticiens = new PanneauPraticiens(praticiens);
         //ConnexionBD.getConnexion();
         Session.fermer();
         
@@ -169,6 +170,7 @@ public class Appli extends Application {
                     Visiteur leVisiteur = ModeleGsbRv.seConnecter(visit[0], visit[1]);
                     if(leVisiteur != null){
                         Session.ouvrir(leVisiteur);
+                        
                         itemSeDeconnecter.setDisable(false);
                         itemSeConnecter.setDisable(true);
                         menuRapports.setDisable(false);
@@ -217,7 +219,7 @@ public class Appli extends Application {
         vueAccueil.toFront();
         root.setCenter(pile);
         
-        
+        /*
         List<Praticien>praticiens = ModeleGsbRv.getPraticiensHesitants();
         
         
@@ -241,9 +243,9 @@ public class Appli extends Application {
         for(Praticien unPraticien:praticiens){
             System.out.println(unPraticien.getNom());
         }
-    
+        */
         
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 800, 400);
                
         primaryStage.setTitle("GSB-RV-DR");
         primaryStage.setScene(scene);
