@@ -209,6 +209,10 @@ public class Appli extends Application {
                         vueRapports.getPane().setVisible(false);
                         vuePraticiens.getPane().setVisible(false);
                         vueAccueil.getPane().setVisible(true);
+                        
+                        vuePraticiens.setCritereTri(1);
+                        
+                        primaryStage.setTitle(visiteur.getNom() + " - GSB-RV-DR");
                     }
                     else {
                         Alert alertCo = new Alert(Alert.AlertType.ERROR);
@@ -258,6 +262,8 @@ public class Appli extends Application {
             menuFichier.getItems().add(0, itemSeConnecter);
 
             barreMenus.getMenus().removeAll(menuRapports, menuPraticiens);
+            
+            vuePraticiens.setCritereTri(1);
 
             primaryStage.setTitle("GSB-RV-DR");
             
@@ -290,13 +296,13 @@ public class Appli extends Application {
             vueAccueil.getPane().setVisible(false);
             
             try {
-                List<Praticien> praticiens = ModeleGsbRv.getPraticiensHesitants();
-                
-                for ( Praticien unPraticien : praticiens ) {
-                    System.out.println( unPraticien.toString() );
-                }
-                
-                System.out.println("");
+//                List<Praticien> praticiens = ModeleGsbRv.getPraticiensHesitants();
+//                
+//                for ( Praticien unPraticien : praticiens ) {
+//                    System.out.println( unPraticien.toString() );
+//                }
+//                
+//                System.out.println("");
                 
 //                Collections.sort(praticiens , new ComparateurCoefConfiance());
 //                
@@ -315,6 +321,8 @@ public class Appli extends Application {
 //                for ( Praticien unPraticien : praticiens ) {
 //                    System.out.println( unPraticien.toString() );
 //                }
+
+                vuePraticiens.rafraichir();
             } 
             
             catch (ConnexionException | SQLException ex) {

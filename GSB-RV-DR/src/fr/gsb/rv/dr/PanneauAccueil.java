@@ -7,6 +7,7 @@ package fr.gsb.rv.dr;
 
 import java.awt.LayoutManager;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -25,7 +26,7 @@ public class PanneauAccueil extends Pane {
         
         grid.getChildren().add(lblAccueil);
         
-        grid.setStyle("-fx-background-color = white");
+        grid.setStyle("-fx-background-color : white");
         
         pane.getChildren().add(grid);
     }
@@ -33,5 +34,5 @@ public class PanneauAccueil extends Pane {
     public Pane getPane() {
         return pane;
     }
-    
+       
 }

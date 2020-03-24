@@ -26,7 +26,7 @@ public class PanneauRapports extends Pane {
         
         grid.getChildren().add(lblRapports);
         
-        grid.setStyle("-fx-background-color = white");
+        grid.setStyle("-fx-background-color : white");
         
         pane.getChildren().add(grid);
     }
