@@ -38,6 +38,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+import fr.gsb.rv.dr.utilitaires.ComparateurCoefConfiance;
+import fr.gsb.rv.dr.utilitaires.ComparateurCoefNotoriete;
+import fr.gsb.rv.dr.utilitaires.ComparateurDateVisite;
+import java.util.Collections;
+
 
 /**
  *
@@ -212,10 +217,31 @@ public class Appli extends Application {
         vueAccueil.toFront();
         root.setCenter(pile);
         
+        
         List<Praticien>praticiens = ModeleGsbRv.getPraticiensHesitants();
-        for(Praticien unPraticien : praticiens){
-            System.out.println(unPraticien);
+        
+        
+        
+        Collections.sort(praticiens, new ComparateurCoefConfiance() );
+        for(Praticien unPraticien:praticiens){
+            System.out.println(unPraticien.getNom());
         }
+        
+        Collections.sort(praticiens, new ComparateurCoefNotoriete() );
+        for(Praticien unPraticien:praticiens){
+            System.out.println(unPraticien.getNom());
+        }
+        
+        Collections.reverse(praticiens);
+        for(Praticien unPraticien:praticiens){
+            System.out.println(unPraticien.getNom());
+        }
+        
+        Collections.sort(praticiens, new ComparateurDateVisite());
+        for(Praticien unPraticien:praticiens){
+            System.out.println(unPraticien.getNom());
+        }
+    
         
         Scene scene = new Scene(root, 400, 300);
                
