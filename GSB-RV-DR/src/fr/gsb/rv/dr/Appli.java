@@ -11,9 +11,13 @@ import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionBD;
 import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
+import fr.gsb.rv.dr.utilitaires.ComparateurCoefConfiance;
+import fr.gsb.rv.dr.utilitaires.ComparateurCoefNotoriete;
+import fr.gsb.rv.dr.utilitaires.ComparateurDateVisite;
 import java.awt.Panel;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -291,6 +295,26 @@ public class Appli extends Application {
                 for ( Praticien unPraticien : praticiens ) {
                     System.out.println( unPraticien.toString() );
                 }
+                
+                System.out.println("");
+                
+//                Collections.sort(praticiens , new ComparateurCoefConfiance());
+//                
+//                for ( Praticien unPraticien : praticiens ) {
+//                    System.out.println( unPraticien.toString() );
+//                }
+
+//                Collections.sort(praticiens, new ComparateurCoefNotoriete());
+//                
+//                for ( Praticien unPraticien : praticiens ) {
+//                    System.out.println( unPraticien.toString() );
+//                }
+
+//                Collections.sort(praticiens, new ComparateurDateVisite());
+//                
+//                for ( Praticien unPraticien : praticiens ) {
+//                    System.out.println( unPraticien.toString() );
+//                }
             } 
             
             catch (ConnexionException | SQLException ex) {
