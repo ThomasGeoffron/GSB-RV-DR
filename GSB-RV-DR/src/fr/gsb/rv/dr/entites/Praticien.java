@@ -12,25 +12,32 @@ import java.time.LocalDate;
  * @author developpeur
  */
 public class Praticien {
-    private int numero;
+    private String numero;
     private String nom;
     private String ville;
     private float coefNotoriete;
     private LocalDate dateDerniereVisite;
     private int dernierCoefConfiance;
+    private String adresse;
+    private String codePostal;
+    private String prenom;
     
     public Praticien(){};
     
-    public Praticien(int numero, String nom, String ville, float coefNotoriete, LocalDate dateDerniereVisite, int dernierCoefConfiance) {
+    public Praticien(String numero, String nom, String ville, float coefNotoriete, LocalDate dateDerniereVisite, int dernierCoefConfiance, 
+            String adresse, String codePostal, String prenom) {
         this.numero = numero;
         this.nom = nom;
         this.ville = ville;
         this.coefNotoriete = coefNotoriete;
         this.dateDerniereVisite = dateDerniereVisite;
         this.dernierCoefConfiance = dernierCoefConfiance;
+        this.adresse = adresse;
+        this.codePostal = codePostal;
+        this.prenom = prenom;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -54,7 +61,19 @@ public class Praticien {
         return dernierCoefConfiance;
     }
 
-    public void setNumero(int numero) {
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getCodePostal() {
+        return codePostal;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -78,11 +97,21 @@ public class Praticien {
         this.dernierCoefConfiance = dernierCoefConfiance;
     }
 
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
     @Override
     public String toString() {
         return "Praticien{" + "numero=" + numero + ", nom=" + nom + ", ville=" + ville + ", coefNotoriete=" + coefNotoriete + ", dateDerniereVisite=" + dateDerniereVisite + ", dernierCoefConfiance=" + dernierCoefConfiance + '}';
-    }
-    
-    
+    }    
     
 }

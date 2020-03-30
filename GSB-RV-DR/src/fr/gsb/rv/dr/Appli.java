@@ -6,6 +6,7 @@
 package fr.gsb.rv.dr;
 
 import fr.gsb.rv.dr.entites.Praticien;
+import fr.gsb.rv.dr.entites.RapportVisite;
 import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionBD;
@@ -275,6 +276,28 @@ public class Appli extends Application {
 //            Visiteur visiteur = session.getLeVisiteur();
 //            
 //            System.out.println(visiteur.getNom() + " " + visiteur.getPrenom() + " [Rapports]");
+
+//            try {
+//                List<Visiteur> visiteurs = ModeleGsbRv.getVisiteurs();
+//                
+//                for ( Visiteur unVisiteur : visiteurs ) {
+//                    System.out.println( unVisiteur.toString() );
+//                }
+//
+//                List<RapportVisite> liste = ModeleGsbRv.getRapportsVisite("a131", 04, 2018);
+//                
+//                for ( RapportVisite unRapport : liste ) {
+//                    System.out.println(unRapport.toString());
+//                }
+//
+//                ModeleGsbRv.setRapportVisiteLu("a131", 3);
+//                
+//            } 
+//            catch (ConnexionException | SQLException ex) {
+//                Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+                
+            
 
             vueRapports.getPane().toFront();
             vueRapports.getPane().setVisible(true);
