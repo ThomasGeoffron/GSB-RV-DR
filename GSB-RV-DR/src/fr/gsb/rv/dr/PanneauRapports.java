@@ -5,9 +5,13 @@
  */
 package fr.gsb.rv.dr;
 
+import fr.gsb.rv.dr.entites.RapportVisite;
+import fr.gsb.rv.dr.entites.Visiteur;
 import java.awt.LayoutManager;
 import java.awt.Panel;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +20,12 @@ import javafx.scene.layout.VBox;
  * @author developpeur
  */
 public class PanneauRapports extends Pane {
+    
+    private ComboBox<Visiteur> cbVisiteurs;
+    private ComboBox<Mois> cbMois;
+    private ComboBox<Integer> cbAnnee;
+    
+    private TableView<RapportVisite> tabRapports;
     
     private Pane pane = new Pane();
     
@@ -33,6 +43,10 @@ public class PanneauRapports extends Pane {
 
     public Pane getPane() {
         return pane;
-    }    
+    }
+
+    public void rafraichir(){
+        
+    }
     
 }
