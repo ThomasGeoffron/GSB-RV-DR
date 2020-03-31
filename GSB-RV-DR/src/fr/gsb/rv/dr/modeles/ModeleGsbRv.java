@@ -162,16 +162,19 @@ public class ModeleGsbRv {
         } 
     }
     
-    public static Praticien getPraticien(String numero) throws ConnexionException {
+    public static Praticien getPraticien(int numero, int rapport) throws ConnexionException {
         Connection connexion = ConnexionBD.getConnexion() ;
         
-        String requete = "select * "
-                + "from Praticien "
-                + "where pra_num = ? ";
+        String requete = "select p.pra_num, pra_nom, pra_ville, rap_coef_confiance, rap_date_visite, pra_coef_notoriete, pra_cp, pra_prenom, pra_adresse\n" +
+                         "from Praticien p inner join RapportVisite r\n" +
+                         "on p.pra_num = r.pra_num\n"
+                        + "where p.pra_num = ? "
+                        + "and rap_num = ?";
         
         try {
             PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement( requete ) ;
-            requetePreparee.setString( 1 , numero );
+            requetePreparee.setInt( 1 , numero );
+            requetePreparee.setInt( 2 , rapport );
             ResultSet resultat = requetePreparee.executeQuery() ;
             if( resultat.next() ){
                 String nom = resultat.getString("pra_nom");
@@ -183,7 +186,7 @@ public class ModeleGsbRv {
                 String cp = resultat.getString("pra_cp");
                 String adresse = resultat.getString("pra_adresse");
                 
-                Praticien praticien = new Praticien(numero, nom, ville, coefNotoriete, dateVisite, coefConfiance, adresse, cp, prenom);
+                Praticien praticien = new Praticien(String.valueOf(numero), nom, ville, coefNotoriete, dateVisite, coefConfiance, adresse, cp, prenom);
                 
                 requetePreparee.close() ;
                 return praticien ;
@@ -213,10 +216,6 @@ public class ModeleGsbRv {
             requete = requete + mois + "%\";";
         }
         
-        
-        
-        System.out.println(requete);
-        
         try {
             PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement( requete ) ;
             
@@ -225,21 +224,21 @@ public class ModeleGsbRv {
             ResultSetMetaData resultatMeta = resultat.getMetaData();
             
             while (resultat.next()) {
-                int numero = (Integer) Integer.parseInt(resultat.getString("pra_num"));
+                int numero = (Integer) Integer.parseInt(resultat.getString("rap_num"));
                 LocalDate dateVisite = (LocalDate) LocalDate.parse(resultat.getString("rap_date_visite"));
                 LocalDate dateRedaction = (LocalDate) LocalDate.parse(resultat.getString("rap_date_redaction"));
                 String bilan = resultat.getString("rap_bilan");
                 String motif = resultat.getString("rap_motif");
                 int coefConfiance = (Integer) Integer.parseInt(resultat.getString("rap_coef_confiance"));
                 Visiteur visiteur = ModeleGsbRv.getVisiteur(matricule);
-                Praticien praticien = ModeleGsbRv.getPraticien(resultat.getString("pra_num"));
+                Praticien praticien = ModeleGsbRv.getPraticien((Integer) Integer.parseInt(resultat.getString("pra_num")), numero);
+                        
+                boolean lu = true;
                 
-                boolean lu = false;
-                
-                if (resultat.getString("rap_lu") != null) {
-                    lu = true;
+                if (resultat.getString("rap_lu") == null || (Integer) Integer.parseInt(resultat.getString("rap_lu")) == 0) {
+                    lu = false;
                 }
-                
+                                
                 RapportVisite rapport = new RapportVisite(numero, dateVisite, dateRedaction, bilan, motif, coefConfiance, lu, visiteur, praticien );
                 
                 listeRapports.add(rapport);

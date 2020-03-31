@@ -67,6 +67,14 @@ public class RapportVisite {
         return lu;
     }
 
+    public Visiteur getLeVisiteur() {
+        return leVisiteur;
+    }
+
+    public Praticien getLePraticien() {
+        return lePraticien;
+    }
+
     public void setNumero(int numero) {
         this.numero = numero;
     }
@@ -93,6 +101,14 @@ public class RapportVisite {
 
     public void setLu(boolean lu) {
         this.lu = lu;
+    }
+
+    public void setLeVisiteur(Visiteur leVisiteur) {
+        this.leVisiteur = leVisiteur;
+    }
+
+    public void setLePraticien(Praticien lePraticien) {
+        this.lePraticien = lePraticien;
     }
 
     @Override
