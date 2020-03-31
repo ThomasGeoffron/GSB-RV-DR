@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -177,6 +178,10 @@ public class PanneauRapports extends Pane {
                             
                             try {
                                 ModeleGsbRv.setRapportVisiteLu(cbVisiteurs.getSelectionModel().getSelectedItem().getMatricule(), rapport.getNumero());
+                                
+                                VueRapport laVue = new VueRapport(rapport);
+                                Dialog vueRapport = laVue.getDialog();
+                                vueRapport.showAndWait();
                                 
                                 rafraichir();
                             } catch (ConnexionException | SQLException ex) {

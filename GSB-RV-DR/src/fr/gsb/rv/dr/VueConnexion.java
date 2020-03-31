@@ -51,6 +51,11 @@ public class VueConnexion extends Dialog {
             if ( typeBouton == OK_DONE ) {
                 return new Pair<String, String>( insMatricule.getText(), insMdp.getText() );
             }
+            else if(typeBouton == CANCEL_CLOSE){
+                insMatricule.setText("");
+                insMdp.setText("");
+                boite.close();
+            }
             return null;
         });
     }

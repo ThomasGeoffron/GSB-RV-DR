@@ -191,8 +191,6 @@ public class Appli extends Application {
             Dialog<Pair<String, String>> vue = laVue.getDialog();
             Optional<Pair<String, String>> reponse = vue.showAndWait();
             
-            System.out.println(reponse.toString());
-            
             if (reponse.isPresent()) {
                 Pair<String, String> resultat = reponse.get();
                 try {
