@@ -81,6 +81,7 @@ public class Appli extends Application {
         
         
         PanneauAccueil vueAccueil = new PanneauAccueil();
+        
         PanneauRapports vueRapports = new PanneauRapports();
         
         

@@ -5,7 +5,18 @@
  */
 package fr.gsb.rv.dr;
 
+import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.modeles.ModeleGsbRv;
+import fr.gsb.rv.dr.technique.ConnexionBD.Mois;
+import fr.gsb.rv.dr.technique.ConnexionException;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -15,15 +26,29 @@ import javafx.scene.layout.VBox;
  */
 public class PanneauRapports extends Pane {
     
-    public PanneauRapports(){
+    private ComboBox<Visiteur> cbVisiteurs;
+    private ComboBox<Mois> cbMois;
+    private ComboBox<Integer> cbAnnee;
+    private TableView tabRapports;
+    
+    public PanneauRapports() throws ConnexionException{
         
-        VBox colonne1 = new VBox();
-        Label leLabel = new Label("Rapports");
+        List<Visiteur> lesVisiteurs = ModeleGsbRv.getVisiteurs();
         
-        colonne1.getChildren().add(leLabel);
-        this.getChildren().add(colonne1);
+        ObservableList<Visiteur>lstVisi = FXCollections.observableArrayList(lesVisiteurs);
+        cbVisiteurs.setItems(lstVisi);
+        
+        GridPane root = new GridPane();
+        root.getChildren().add(cbVisiteurs);
+        
+        
+        
         
         this.setStyle("-fx-background-color: white;");
+        
+    }
+    
+    public void rafraichir(){
         
     }
     
