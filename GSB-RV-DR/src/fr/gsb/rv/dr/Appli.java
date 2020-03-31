@@ -7,6 +7,7 @@ package fr.gsb.rv.dr;
 
 import static fr.gsb.rv.dr.PanneauPraticiens.CRITERE_COEF_CONFIANCE;
 import fr.gsb.rv.dr.entites.Praticien;
+import fr.gsb.rv.dr.entites.RapportVisite;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,9 +56,33 @@ public class Appli extends Application {
     public void start(Stage primaryStage) throws ConnexionException, SQLException {
         //Visiteur leVisiteur = new Visiteur();
         
+        /*
+        //testJAVAFX TABLE REACTIVE 4. getRapportsVisite() et setRapportVisiteLu()
+        ModeleGsbRv.setRapportVisiteLu("l14",8 );
+        List<RapportVisite> rapportsVisite = ModeleGsbRv.getRapportsVisite("l14", 3,2020);
+        for(RapportVisite unRapport : rapportsVisite){
+            System.out.println(unRapport.getNumero());
+        }
+        for(RapportVisite unRapport : rapportsVisite){
+            System.out.println(unRapport.isLu());
+        }
+        
+        //test getVisiteurs()
+        List<Visiteur> visiteurs = ModeleGsbRv.getVisiteurs();
+        
+        for(Visiteur unVisiteur : visiteurs){
+            System.out.println(unVisiteur.getNom());
+        }
+        */
+        
+        
+        
+        
+        
         
         PanneauAccueil vueAccueil = new PanneauAccueil();
         PanneauRapports vueRapports = new PanneauRapports();
+        
         
         List<Praticien>praticiens = ModeleGsbRv.getPraticiensHesitants();
         PanneauPraticiens vuePraticiens = new PanneauPraticiens(praticiens);
@@ -244,6 +269,8 @@ public class Appli extends Application {
             System.out.println(unPraticien.getNom());
         }
         */
+        
+        
         
         Scene scene = new Scene(root, 800, 400);
                

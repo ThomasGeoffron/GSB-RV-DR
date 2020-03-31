@@ -25,6 +25,7 @@ public class ConnexionBD {
     public static Connection getConnexion() throws ConnexionException {
         if( connexion == null ){
             new ConnexionBD() ;
+            
         }
         return connexion ;
     }
