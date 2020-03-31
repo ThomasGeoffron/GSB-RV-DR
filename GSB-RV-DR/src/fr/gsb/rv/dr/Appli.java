@@ -52,7 +52,7 @@ public class Appli extends Application {
     private PanneauAccueil vueAccueil = new PanneauAccueil();
     private PanneauRapports vueRapports = new PanneauRapports();
     private PanneauPraticiens vuePraticiens = new PanneauPraticiens();
-    
+  
     @Override
     public void start(Stage primaryStage) {
         
@@ -303,7 +303,7 @@ public class Appli extends Application {
             vueRapports.getPane().setVisible(true);
             vuePraticiens.getPane().setVisible(false);
             vueAccueil.getPane().setVisible(false);
-            
+                        
         });
         
         itemPraticiens.setOnAction( actionEvent -> {
