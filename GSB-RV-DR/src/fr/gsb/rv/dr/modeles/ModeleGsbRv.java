@@ -117,7 +117,7 @@ public class ModeleGsbRv {
         Connection connexion = ConnexionBD.getConnexion() ;
         
         String requete = "select vis_matricule, vis_nom, vis_prenom "
-                + "from Visiteur"
+                + "from Visiteur "
                 + "where vis_matricule = ?;";
         
         try {
@@ -246,7 +246,7 @@ public class ModeleGsbRv {
                 if(resultat.getString("rap_lu").equals("oui")){
                     rap_lu = true;
                 }
-                
+                System.out.println(resultat.getString("vis_matricule"));
                 rapportsVisite.add(new RapportVisite(resultat.getInt("rap_num"),
                     resultat.getDate("rap_date_visite").toLocalDate(),
                     resultat.getDate("rap_date_redaction").toLocalDate(),
@@ -254,7 +254,7 @@ public class ModeleGsbRv {
                     resultat.getString("mot_libelle"),
                     resultat.getString("rap_coef_confiance"),
                     rap_lu,
-                    getLeVisiteur(matricule),
+                    getLeVisiteur(resultat.getString("vis_matricule")),
                     getLePraticien(resultat.getInt("pra_num"))));
                 
             }

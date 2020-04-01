@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
@@ -151,8 +152,8 @@ public class PanneauRapports extends Pane {
             }
         );
 
-        colRedac.setCellFactory(
-                colonne -> {
+        colRedac.setCellFactory(colonne -> {
+                
                     return new TableCell<RapportVisite,LocalDate>(){
                         @Override
                         protected void updateItem(LocalDate item, boolean empty) {
@@ -181,62 +182,56 @@ public class PanneauRapports extends Pane {
                                     setStyle( "-fx-background-color: lightblue");
                                 }
                                 else {
-                                    setStyle( "-fx-background-color: cyan");
+                                    setStyle( "-fx-background-color: white");
                                 }
                             }
                          }
                     };
                 }
         );
-        tabRapports.setRowFactory(
-                    ligne -> {
-                        return new TableRow<RapportVisite>(){
-                            @Override
-                            protected void updateItem(RapportVisite item, boolean empty) {
-                                super.updateItem(item, empty);
-
-                                if(item != null) {
-                                    if(item.isLu()) {
-                                        setStyle( "-fx-background-color: lightblue");
-                                    }
-                                    else {
-                                        setStyle( "-fx-background-color: cyan");
-                                    }
+        tabRapports.setRowFactory(ligne -> {
+                    
+                return new TableRow<RapportVisite>(){
+                        @Override
+                        protected void updateItem(RapportVisite item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if(item != null) {
+                                if(item.isLu()) {
+                                    setStyle( "-fx-background-color: lightblue");
                                 }
-
+                                else {
+                                    setStyle( "-fx-background-color: white");
+                                }
                             }
-                        };
-                    }
-            );
-
-            tabRapports.setOnMouseClicked(
-                    (MouseEvent event) -> {
-                        if( event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                            int indiceRapport = tabRapports.getSelectionModel().getSelectedIndex();
-                            RapportVisite rapport = tabRapports.getSelectionModel().getSelectedItem();
-
-                            try {
-                                ModeleGsbRv.setRapportVisiteLu(cbVisiteurs.getSelectionModel().getSelectedItem().getMatricule(), rapport.getNumero());
-
-                                rafraichir();
-                            } catch (ConnexionException ex) {
-                                Logger.getLogger(PanneauRapports.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
-
                         }
-                    }
-            );
+                    };
+                }
+        );
 
-            tabRapports.getColumns().addAll(colNum, colNom, colVille, colVisite, colRedac);
-        
-        
-        
-        
-        
-        
-        
-        
+        tabRapports.setOnMouseClicked((MouseEvent event) -> {
+                
+                    if( event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                        //int indiceRapport = tabRapports;
+                        RapportVisite rapport = tabRapports.getSelectionModel().getSelectedItem();
+                        
+                        try {
+                            ModeleGsbRv.setRapportVisiteLu(cbVisiteurs.getSelectionModel().getSelectedItem().getMatricule(), rapport.getNumero());
+                            
+                            VueRapport laVue = new VueRapport(rapport);
+                            Dialog vueRapport = laVue.getDialog();
+                            vueRapport.showAndWait();
+                            
+                            rafraichir();
+                        } catch (ConnexionException ex) {
+                            Logger.getLogger(PanneauRapports.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+
+                    }
+                }
+        );
+
+        tabRapports.getColumns().addAll(colNum, colNom, colVille, colVisite, colRedac);
         
         
         hBoxComboBox.getChildren().add(cbVisiteurs);
@@ -267,11 +262,14 @@ public class PanneauRapports extends Pane {
         String matricule = cbVisiteurs.getSelectionModel().getSelectedItem().getMatricule();
         int mois = cbMois.getSelectionModel().getSelectedItem().ordinal() + 1;
         int annee = cbAnnee.getSelectionModel().getSelectedItem();
-
+        
+        
+        
         List<RapportVisite> liste = ModeleGsbRv.getRapportsVisite(matricule, mois, annee);
-
+        
+        
         ObservableList<RapportVisite> listeRapports = FXCollections.observableArrayList(liste);
-
+        
         tabRapports.setItems(listeRapports);
     }
     
