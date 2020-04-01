@@ -49,4 +49,11 @@ public class Visiteur {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     } 
+
+    @Override
+    public String toString() {
+        return nom.toUpperCase() + " " + prenom + " (" + matricule + ")";
+    }
+    
+    
 }

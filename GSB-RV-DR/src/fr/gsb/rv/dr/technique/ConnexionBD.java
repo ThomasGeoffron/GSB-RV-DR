@@ -30,5 +30,5 @@ public class ConnexionBD {
         return connexion ;
     }
     
-    public enum Mois{ Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Aout, Septembre, Octobre, Novembre, Décembre}
+    
 }

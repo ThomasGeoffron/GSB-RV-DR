@@ -115,6 +115,7 @@ public class PanneauPraticiens extends Pane {
             this.rafraichir();
         });
         
+        
         ObservableList<Praticien> list = FXCollections.observableArrayList(praticiens);;
         tableau.setItems(list);
         
