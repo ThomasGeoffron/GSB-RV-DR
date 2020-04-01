@@ -280,7 +280,8 @@ public class ModeleGsbRv {
         
         try{
             PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement( requete ) ;
-            requetePreparee.setInt( 1 ,numRapport );
+            requetePreparee.setInt( 1 ,
+                    numRapport );
             requetePreparee.setString(2 , matricule);
             
             
