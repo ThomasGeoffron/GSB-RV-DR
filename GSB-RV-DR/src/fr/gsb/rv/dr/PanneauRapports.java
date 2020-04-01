@@ -9,6 +9,7 @@ import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.Mois;
 import fr.gsb.rv.dr.technique.ConnexionException;
+import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,8 +61,17 @@ public class PanneauRapports extends Pane {
         }
         cbMois.setValue(cbMois.getItems().get(0));
         
+        LocalDate today = LocalDate.now();
+        int currentYear = today.getYear();
+        
+        for(int i = 0; i<=5 ; i++){
+            cbAnnee.getItems().add(currentYear - i);
+        }
+        cbAnnee.setValue(currentYear);
+        
         hBoxComboBox.getChildren().add(cbVisiteurs);
         hBoxComboBox.getChildren().add(cbMois);
+        hBoxComboBox.getChildren().add(cbAnnee);
         
         vBoxPrincipal.getChildren().add(hBoxComboBox);
         
